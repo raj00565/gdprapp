@@ -3,13 +3,14 @@
         <h3>Save file</h3>
         <section>
           <div class="download">
-            <p>Parsed {{$linkedin.list.name}}.json</p>
+            <img src="~@/assets/icon/page.svg">
+            <p style="margin-top: 42px; font-weight: 600">Parsed {{$linkedin.list.name}}.json</p>
           </div>
+          
         </section>
         <div>
           <a style="margin-bottom: 64px;" class="btn" @click="download()">Save file</a>
-        </div>       
-        
+        </div> 
     </div>
 </template>
 <script>

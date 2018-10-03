@@ -14,7 +14,7 @@ export default {
   methods: {
     onFile(file) {
       this.$linkedin.parseInitialList(file);
-      this.$router.push({ name: 'Processing' });
+      this.$router.push({ name: "Notice"})
     }
   },
   components: {

@@ -6,19 +6,31 @@ import NotFound from '../components/NotFound';
 import Upload from '../components/Upload';
 import Processing from '../components/Processing';
 import Download from '../components/Download';
+import WelcomeScreen from '../components/WelcomeScreen.vue'
+import Notice from '../components/Notice.vue';
 
 Vue.use(Router)
 
 export default new Router({
   routes: [{
       path: '/',
-      name: 'Homepage',
+      name: 'WelcomePage',
+      component: WelcomeScreen
+    },
+    {
+      path: '/agreement',
+      name: 'Agreement',
       component: Home
     },
     {
       path: '/not-found',
       name: 'NotFound',
       component: NotFound
+    },
+    {
+      path: '/notice',
+      name: "Notice",
+      component: Notice
     },
     {
       path: '/upload',
