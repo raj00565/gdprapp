@@ -8,7 +8,7 @@ let nmChromiumPath = __dirname + "/node_modules/puppeteer/.local-chromium/";
 nmChromiumPath += ffs.readdirSync(nmChromiumPath)[1]
 nmChromiumPath += '/chrome-mac/Chromium.app';
 
-let asar = __dirname + "/build/Desktop\ Application.app/Contents/Resources/app.asar.unpacked/node_modules/puppeteer/.local-chromium/"
+let asar = __dirname + "/build/mac/Desktop\ Application.app/Contents/Resources/app.asar.unpacked/node_modules/puppeteer/.local-chromium/"
 asar += ffs.readdirSync(asar)[0]
 asar += "/chrome-mac/Chromium.app";
 //ffs.renameSync(asar, asar+"_old");
