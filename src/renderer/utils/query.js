@@ -4,12 +4,14 @@ export const PROSPECT_INFO = () => {
     const PROFILE_NAME = '.pv-top-card-section__name';
     const PROFILE_CIRCLE = '.pv-top-card-section__distance-badge .dist-value';
     const PROFILE_LOCATION = '.pv-top-card-section__location';
+    const PROFILE_WORKPLACE = '.pv-top-card-v2-section__company-name'
 
     const titleBlock = document.querySelector(PROFILE_TITLE);
     const avatarBlock = document.querySelector(PROFILE_PICTURE);
     const nameBlock = document.querySelector(PROFILE_NAME);
     const circleBlock = document.querySelector(PROFILE_CIRCLE);
     const locationBlock = document.querySelector(PROFILE_LOCATION);
+    const workplaceBlock = document.querySelector(PROFILE_WORKPLACE)
 
     return {
         title: titleBlock.innerText,
@@ -17,6 +19,7 @@ export const PROSPECT_INFO = () => {
         name: nameBlock.innerText,
         connectionDegree: parseInt(circleBlock.innerText), // '1-st' to 1
         location: locationBlock.innerText,
+        workplace: workplaceBlock ? workplaceBlock.innerText : null,
         linkedInProfileLink: location.href
     };
 }
