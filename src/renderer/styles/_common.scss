@@ -125,7 +125,10 @@ h3 {
   height: 280px;
   text-align: center;
 }
-
+.external-link {
+  cursor: pointer;
+  color: $accent;
+}
 .download {
   margin: 84px auto;
   padding: 32px;

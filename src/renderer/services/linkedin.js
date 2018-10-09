@@ -70,8 +70,8 @@ export function LinkedInService($progress) {
       show
     }) {
       let viewport = {
-        height: 600,
-        width: 800
+        height: 0,
+        width: 0
       };
 
       browser = await puppeteer.launch({
