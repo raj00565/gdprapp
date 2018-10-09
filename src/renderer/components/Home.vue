@@ -38,7 +38,7 @@ export default {
     open(link){
       if(link === 'policy'){
         openLink('https://www.gdprapp.org/terms-and-services')
-      } else if(link === 'private') {
+      } else if(link === 'privacy') {
         openLink('https://www.gdprapp.org/privat-policy')
       }
     }
