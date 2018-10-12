@@ -47,6 +47,10 @@ export const QUERY_NEXT_BUTTON = () => {
     const MUTUALS_NEXT_BTN = 'button.next';
     return !!document.querySelector(MUTUALS_NEXT_BTN)
 }
+export const QUERY_MUTUALS_LOAD = () => {
+    const MUTUAL_ELEMENT = '.search-result__info'
+    return !!document.querySelector(MUTUAL_ELEMENT);
+}
 export const MUTUALS_COUNT = () => {
     const MUTUALS_COUNT = '.pv-highlight-entity__primary-text';
     return parseInt(document.querySelector(MUTUALS_COUNT).innerText)

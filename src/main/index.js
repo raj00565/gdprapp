@@ -24,6 +24,7 @@ function createWindow () {
   })
 
   mainWindow.loadURL(winURL)
+  mainWindow.setResizable(false);
 
   mainWindow.on('closed', () => {
     mainWindow = null

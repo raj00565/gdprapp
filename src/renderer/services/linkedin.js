@@ -19,13 +19,14 @@ import {
   USER_AVATAR,
   QUERY_PROFILE_BLOCK,
   QUERY_PROFILE_READY,
-  MUTUALS_COUNT
+  MUTUALS_COUNT,
+  QUERY_MUTUALS_LOAD
 } from '../utils/query';
 
-async function snap(page, message) {
+async function snap(page, message, filename="snap") {
   console.info('---| ' + message);
   await page.screenshot({
-    path: 'snap.png'
+    path: filename+'.png'
   });
 }
 
@@ -110,7 +111,7 @@ export function LinkedInService($progress) {
 
       await page.waitForFunction(
         'location.href.includes("https://www.linkedin.com/feed/")', {
-          timeout: 100000
+          timeout: 1000000
         }
       );
       let cookies = await page.cookies();
@@ -149,7 +150,7 @@ export function LinkedInService($progress) {
       try {
         await page.waitForFunction(QUERY_PROFILE_READY);
         prospect = await page.evaluate(PROSPECT_INFO);
-
+        //snap(page, "Dumping prospect page", prospect.name)
         try {
           hasMutuals = await page.evaluate(QUERY_HIGHLIGHTS_BLOCK);
         } catch (e) {
@@ -171,17 +172,20 @@ export function LinkedInService($progress) {
         prospect
       };
     },
-    async getMutualsFrom(link) {
+    async getMutualsFrom(link, name) {
       console.log('going to mutuals', link);
       await page.goto(link);
       let hasNextPage = true;
       let mutuals = [];
       let prevUrl = 0;
+      let i = 0;
       while (hasNextPage) {
         await page.waitForFunction(`'${prevUrl}' !== location.href`);
-        await page.waitFor(500);
+        await page.waitFor(800);
+        await page.waitForFunction(QUERY_MUTUALS_LOAD)
         let m = await page.evaluate(FETCH_MUTUALS_LIST);
         console.log(`Scrapped from page ${m.length} users.`, m);
+        // snap(page, "", `${name} - ${i++}`);
         mutuals = [...mutuals, ...m];
 
         hasNextPage = await page.evaluate(QUERY_NEXT_BUTTON);
@@ -212,7 +216,7 @@ export function LinkedInService($progress) {
         let mutualsLink;
         try {
           let res = await this.parseProspectProfile(
-            contact.linkedInProfileLink
+            contact.linkedInProfileLink,
           );
           mutualsLink = res.mutualsLink;
           console.log('prospect', res);
@@ -223,7 +227,10 @@ export function LinkedInService($progress) {
         }
         $progress.stepProspectScan();
         if (mutualsLink) {
-          contact.MutualContacts = await this.getMutualsFrom(mutualsLink);
+          contact.MutualContacts = await this.getMutualsFrom(
+            mutualsLink,
+            contact.name
+          );
         }
         if (contact.MutualContacts) {
           contact.MutualContacts = contact.MutualContacts.map(m => ({
