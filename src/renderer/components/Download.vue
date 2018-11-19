@@ -23,7 +23,9 @@ export default {
   methods: {
     download() {
       let saveTo = remote.dialog.showOpenDialog({
-        properties: ["openDirectory"]
+        properties: ["openDirectory"],
+        title: "Select path",
+        buttonLabel: "Save"
       });
       if (saveTo && saveTo.length > 0) {
         fs.writeFileSync(

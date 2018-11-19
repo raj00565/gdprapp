@@ -29,8 +29,18 @@ export const USER_AVATAR = () => {
 }
 
 export const QUERY_HIGHLIGHTS_BLOCK = () => {
-    const HIGHLIGHTS_BLOCK = '.pv-highlight-entity.ember-view'
-    return !!document.querySelector(HIGHLIGHTS_BLOCK);
+    const HIGHLIGHTS_BLOCK = '.pv-highlight-entity.ember-view';
+    const HIGHLIGHTS_TITLE = '.pv-highlight-entity__primary-text'
+    let hasMutuals = false;
+    document.querySelectorAll(HIGHLIGHTS_BLOCK).forEach(n => {
+        if(n.querySelector(HIGHLIGHTS_TITLE) && n.querySelector(HIGHLIGHTS_TITLE)
+                .innerText
+                .toLowerCase()
+                .search('connection') != 0){
+                    hasMutuals = true
+        }
+    });
+    return hasMutuals;
 }
 export const QUERY_PROFILE_READY = () => {
     const EXPERIENCE_BLOCK = '#experience-section';
@@ -62,7 +72,20 @@ export const GO_TO_NEXT_PAGE = () => {
 
 export const FETCH_MUTUALS_LINK = () => {
     const MUTUALS_LINK = 'a[data-control-name=highlight_entity_url_card_action_click]';
-    return document.querySelector(MUTUALS_LINK).href;
+    const HIGHLIGHTS_BLOCK = '.pv-highlight-entity.ember-view';
+    const HIGHLIGHTS_TITLE = '.pv-highlight-entity__primary-text';
+    let mutualsBlock = null;
+
+    document.querySelectorAll(HIGHLIGHTS_BLOCK).forEach(n => {
+        if(n.querySelector(HIGHLIGHTS_TITLE) && n.querySelector(HIGHLIGHTS_TITLE)
+                .innerText
+                .toLowerCase()
+                .search('connection') > 0){
+                    mutualsBlock = n;
+        }
+    });
+    if(mutualsBlock)
+        return mutualsBlock.querySelector(MUTUALS_LINK).href;
 }
 
 export const FETCH_MUTUALS_LIST = () => {

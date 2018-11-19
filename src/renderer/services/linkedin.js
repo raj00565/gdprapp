@@ -81,8 +81,9 @@ export function LinkedInService($progress) {
         defaultViewport: viewport,
         slowMo: 25
       });
-
-      page = await browser.newPage();
+      let pages = await browser.pages();
+      page = pages[0]
+     // page = await browser.newPage();
 
       await page.setViewport(viewport);
       this.authorized = false;
@@ -162,9 +163,12 @@ export function LinkedInService($progress) {
       }
 
       if (hasMutuals) {
-        $progress.totalMutuals = await page.evaluate(MUTUALS_COUNT);
-        console.log('Total mutuals: ' + $progress.totalMutuals);
-        mutualsLink = await page.evaluate(FETCH_MUTUALS_LINK);
+        let mc = await page.evaluate(MUTUALS_COUNT);
+        if(mc) {
+          $progress.totalMutuals = mc
+          console.log('Total mutuals: ' + $progress.totalMutuals);
+          mutualsLink = await page.evaluate(FETCH_MUTUALS_LINK);
+        }
       }
 
       return {
@@ -175,6 +179,7 @@ export function LinkedInService($progress) {
     async getMutualsFrom(link, name) {
       console.log('going to mutuals', link);
       await page.goto(link);
+      console.log('entered page')
       let hasNextPage = true;
       let mutuals = [];
       let prevUrl = 0;
