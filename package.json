@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@types/vue": "^2.0.0",
-    "axios": "^0.16.1",
+    "axios": "^0.21.1",
     "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
     "fix-path": "^2.1.0",
